@@ -1,6 +1,7 @@
 package yapi
 
 import (
+	"html/template"
 	"net/http"
 )
 
@@ -22,28 +23,41 @@ type ReqKVItemDetail struct {
 	Required string `json:"required" structs:"required"`
 }
 
-type InterfaceData struct {
-	ID                  int               `json:"_id" structs:"_id"`
-	ProjectID           int               `json:"project_id" structs:"project_id"`
-	CatID               int               `json:"catid" structs:"catid"`
-	UID                 int               `json:"uid" structs:"uid"`
-	EditUID             int               `json:"edit_uid" structs:"edit_uid"`
-	AddTime             int               `json:"add_time" structs:"add_time"`
-	UpTime              int               `json:"up_time" structs:"up_time"`
-	Status              string            `json:"status" structs:"status"`
-	Title               string            `json:"title" structs:"title"`
-	Path                string            `json:"path" structs:"path"`
-	Method              string            `json:"method" structs:"method"`
-	Tag                 []string          `json:"tag" structs:"tag"`
-	ResBody             string            `json:"res_body" structs:"res_body"`
-	ResBodyType         string            `json:"res_body_type" structs:"res_body_type"`
-	ResBodyIsJsonSchema bool              `json:"res_body_is_json_schema" structs:"res_body_is_json_schema"`
-	ReqBodyType         string            `json:"req_body_type" structs:"req_body_type"`
+type interfaceBase struct {
+	ID        int      `json:"_id" structs:"_id"`
+	UID       int      `json:"uid" structs:"uid"`
+	CatID     int      `json:"catid" structs:"catid"`
+	ProjectID int      `json:"project_id" structs:"project_id"`
+	EditUID   int      `json:"edit_uid" structs:"edit_uid"`
+	AddTime   int      `json:"add_time" structs:"add_time"`
+	UpTime    int      `json:"up_time" structs:"up_time"`
+	Status    string   `json:"status" structs:"status"`
+	Title     string   `json:"title" structs:"title"`
+	Path      string   `json:"path" structs:"path"`
+	Method    string   `json:"method" structs:"method"`
+	Tag       []string `json:"tag" structs:"tag"`
+}
+
+type interfaceReq struct {
 	ReqParams           []ReqKVItemSimple `json:"req_params" structs:"req_params"`
 	ReqHeaders          []ReqKVItemDetail `json:"req_headers" structs:"req_headers"`
 	ReqQuery            []ReqKVItemDetail `json:"req_query" structs:"req_query"`
 	ReqBodyForm         []ReqKVItemDetail `json:"req_body_form" structs:"req_body_form"`
-	ReqBodyOther        string            `json:"req_body_other" structs:"req_body_other"`
+	ReqBodyIsJsonSchema bool              `json:"req_body_is_json_schema" structs:"req_body_is_json_schema"`
+	ReqBodyType         string            `json:"req_body_type" structs:"req_body_type"`
+	ReqBodyOther        template.HTML     `json:"req_body_other" structs:"req_body_other"`
+}
+
+type interfaceRes struct {
+	ResBodyIsJsonSchema bool          `json:"res_body_is_json_schema" structs:"res_body_is_json_schema"`
+	ResBodyType         string        `json:"res_body_type" structs:"res_body_type"`
+	ResBody             template.HTML `json:"res_body" structs:"res_body"`
+}
+
+type InterfaceData struct {
+	interfaceBase
+	interfaceReq
+	interfaceRes
 }
 
 type Interface struct {
