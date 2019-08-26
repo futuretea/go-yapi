@@ -33,6 +33,7 @@ type InterfaceData struct {
 	Title               string            `json:"title" structs:"title"`
 	Path                string            `json:"path" structs:"path"`
 	Method              string            `json:"method" structs:"method"`
+	Tag                 []string          `json:"tag" structs:"tag"`
 	ResBody             string            `json:"res_body" structs:"res_body"`
 	ResBodyType         string            `json:"res_body_type" structs:"res_body_type"`
 	ResBodyIsJsonSchema bool              `json:"res_body_is_json_schema" structs:"res_body_is_json_schema"`

@@ -3,12 +3,11 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/futuretea/go-yapi"
+	"golang.org/x/crypto/ssh/terminal"
 	"os"
 	"strings"
 	"syscall"
-
-	"github.com/futuretea/go-yapi"
-	"golang.org/x/crypto/ssh/terminal"
 )
 
 func getAPI() (string, string) {
@@ -22,7 +21,6 @@ func getAPI() (string, string) {
 	byteAPIToken, _ := terminal.ReadPassword(int(syscall.Stdin))
 	apiToken := strings.TrimSpace(string(byteAPIToken))
 	fmt.Println()
-
 	return apiURL, apiToken
 }
 
@@ -42,11 +40,12 @@ func main() {
 		interfaces, _, _ := yapiClient.Interface.GetList(interfaceListParam)
 		for _, i := range interfaces.Data.List {
 			result, _, _ := yapiClient.Interface.Get(i.ID)
-			fmt.Printf("project_id=%d, catmenu id=%d, interface id=%d, interface title=%s\n",
+			fmt.Printf("project_id=%d, catmenu id=%d, interface id=%d, interface title=%s, interface tag=%v\n",
 				project.Data.ID,
 				catmenu.ID,
 				i.ID,
 				result.Data.Title,
+				result.Data.Tag,
 			)
 		}
 	}
