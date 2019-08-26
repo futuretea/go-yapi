@@ -11,6 +11,7 @@ type InterfaceService struct {
 
 type ReqKVItemSimple struct {
 	Name    string `json:"name" structs:"name"`
+	Value   string `json:"value" structs:"value"`
 	Example string `json:"example" structs:"example"`
 	Desc    string `json:"desc" structs:"desc"`
 }
@@ -39,9 +40,10 @@ type InterfaceData struct {
 	ResBodyIsJsonSchema bool              `json:"res_body_is_json_schema" structs:"res_body_is_json_schema"`
 	ReqBodyType         string            `json:"req_body_type" structs:"req_body_type"`
 	ReqParams           []ReqKVItemSimple `json:"req_params" structs:"req_params"`
-	ReqHeaders          []ReqKVItemSimple `json:"req_headers" structs:"req_headers"`
+	ReqHeaders          []ReqKVItemDetail `json:"req_headers" structs:"req_headers"`
 	ReqQuery            []ReqKVItemDetail `json:"req_query" structs:"req_query"`
 	ReqBodyForm         []ReqKVItemDetail `json:"req_body_form" structs:"req_body_form"`
+	ReqBodyOther        string            `json:"req_body_other" structs:"req_body_other"`
 }
 
 type Interface struct {
